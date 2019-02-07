@@ -23,5 +23,8 @@ flutter run -d [deviceId]
 
 flutter build apk
 
+这个Demo效果图：
+![欢迎页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191524.png)
+
 
 
