@@ -23,8 +23,17 @@ flutter run -d [deviceId]
 
 flutter build apk
 
-这个Demo效果图：
+这个Demo效果图，底部有5个导航栏，页面间是可以滑动切换的，有下拉刷新、Toast、ListView：
+
 ![欢迎页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191524.png)
+
+![首页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191545.png)
+
+![切换页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191613.png)
+
+![下拉刷新](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191634.png)
+
+
 
 
 
