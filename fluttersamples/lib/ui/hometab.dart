@@ -1,7 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:fluttersamples/widgets/ToolBar.dart';
+import 'package:flutter_tv/utils/PageLocalizations.dart';
+import 'package:flutter_tv/utils/utils.dart';
+import 'package:flutter_tv/widgets/ToolBar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeTab extends StatefulWidget {
@@ -13,20 +13,26 @@ class HomeTab extends StatefulWidget {
 
 class HomeTabState extends State<HomeTab> {
   List widgets = [];
+  List strings = [];
 
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < 100; i++) {
+    initList();
+    for (int i = 0; i < 18; i++) {
       widgets.add(getItem(i));
     }
+    Utils().getBatteryLevel().then((string){
+      print(string);
+      showToast(string);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: ToolBar(
-        child: Text("title"),
+        child: Text("title" + PageLocalizations.of(context).titleBarTitle),
       ),
       body: Scaffold(
           body: RefreshIndicator(
@@ -44,32 +50,56 @@ class HomeTabState extends State<HomeTab> {
   Future<Null> _handleRefresh() async {
     await Future.delayed(Duration(seconds: 1), () {
       setState(() {
-        print('refresh');
-        for (int i = 0; i < 50; i++) {
-          widgets.add(getItem(i));
-        }
+        showToast('刷新完成');
         return null;
       });
     });
   }
 
   Widget getItem(int i) {
+    if (i.isOdd) {
+      return new Divider();
+    }
     return new GestureDetector(
       child: new Padding(
-          padding: new EdgeInsets.all(10.0), child: new Text("Row $i")),
+          padding: new EdgeInsets.all(10.0),
+          child: new Text(strings.elementAt(i))),
       onTap: () {
         setState(() {
-          widgets.add(getItem(widgets.length + 1));
+          showToast(strings.elementAt(i));
           print('row $i');
         });
       },
-      onLongPress: showToast,
+      onLongPress: () {
+        showToast(strings.elementAt(i));
+      },
     );
   }
 
-  void showToast() {
+  void initList() {
+    strings.add("Text相关");
+    strings.add("Image相关");
+    strings.add("ListView相关");
+    strings.add("GridView相关");
+    strings.add("Flow相关");
+    strings.add("Table相关");
+    strings.add("File相关");
+    strings.add("Http相关");
+    strings.add("WebView相关");
+    strings.add("路由跳转相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+    strings.add("Image相关");
+  }
+
+  void showToast(String text) {
     Fluttertoast.showToast(
-        msg: "This is Center Short Toast",
+        msg: text,
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 1,
