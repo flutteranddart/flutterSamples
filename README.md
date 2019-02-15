@@ -23,6 +23,13 @@ flutter run -d [deviceId]
 
 flutter build apk
 
+Samples目前已涵盖：http请求、File、Image、Json编解码、Flutter和Native Java调用、ExpansionPanel、Table、CustomScrollView、
+Routes、Navigator、CupertinoTabBar、SnackBar、BottomNavigationBar、生命周期监听、返回键监听、前后台监听、手势、国际化、
+BottomSheet、Scaffold、AlerDialog、SimpleDialog、Column、CircularProgressIndicator、LinearProgressIndicator、
+自定义Widget、工具类封装等。注释和其他的排版完善中...
+
+
+
 这个Demo效果图，底部有5个导航栏，页面间是可以滑动切换的，有下拉刷新、Toast、ListView、有网络接口请求：
 
 ![欢迎页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191524.png)
