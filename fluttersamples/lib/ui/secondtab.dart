@@ -1,3 +1,9 @@
+/*
+ * @Author: Tan Dong 
+ * @Date: 2019-02-22 22:29:10 
+ * @Last Modified by:   Tan Dong 
+ * @Last Modified time: 2019-02-22 22:29:10 
+ */
 import 'package:flutter/material.dart';
 import 'package:fluttersamples/samples/image_samples.dart';
 import 'package:fluttersamples/utils/httpUtils.dart';

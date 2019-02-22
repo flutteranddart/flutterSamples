@@ -1,3 +1,9 @@
+/*
+ * @Author: Tan Dong 
+ * @Date: 2019-02-22 22:28:27 
+ * @Last Modified by:   Tan Dong 
+ * @Last Modified time: 2019-02-22 22:28:27 
+ */
 import 'package:flutter/material.dart';
 
 class LoadingDialog extends Dialog {
