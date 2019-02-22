@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_tv/ui/hometab.dart';
-import 'package:flutter_tv/ui/othertab.dart';
-import 'package:flutter_tv/ui/secondtab.dart';
+import 'package:fluttersamples/ui/hometab.dart';
+import 'package:fluttersamples/ui/othertab.dart';
+import 'package:fluttersamples/ui/secondtab.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {

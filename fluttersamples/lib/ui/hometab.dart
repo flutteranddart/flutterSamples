@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tv/utils/PageLocalizations.dart';
-import 'package:flutter_tv/utils/utils.dart';
-import 'package:flutter_tv/widgets/ToolBar.dart';
+import 'package:fluttersamples/utils/PageLocalizations.dart';
+import 'package:fluttersamples/utils/utils.dart';
+import 'package:fluttersamples/widgets/ToolBar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeTab extends StatefulWidget {

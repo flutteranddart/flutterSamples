@@ -5,9 +5,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_tv/ui/home.dart';
-import 'package:flutter_tv/utils/GlobalPagesLocalizations.dart';
-import 'package:flutter_tv/utils/PageLocalizations.dart';
+import 'package:fluttersamples/ui/home.dart';
+import 'package:fluttersamples/utils/GlobalPagesLocalizations.dart';
+import 'package:fluttersamples/utils/PageLocalizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

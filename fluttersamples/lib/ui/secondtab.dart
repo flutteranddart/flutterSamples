@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tv/samples/image_samples.dart';
-import 'package:flutter_tv/utils/httpUtils.dart';
-import 'package:flutter_tv/widgets/ToolBar.dart';
+import 'package:fluttersamples/samples/image_samples.dart';
+import 'package:fluttersamples/utils/httpUtils.dart';
+import 'package:fluttersamples/widgets/ToolBar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_tv/utils/dialogUtils.dart';
+import 'package:fluttersamples/utils/dialogUtils.dart';
 
 class SecondTab extends StatefulWidget {
   @override

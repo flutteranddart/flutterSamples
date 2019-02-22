@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_tv/widgets/ToolBar.dart';
+import 'package:fluttersamples/widgets/ToolBar.dart';
 
 class ExpansionPanelListPage extends StatefulWidget {
   @override
