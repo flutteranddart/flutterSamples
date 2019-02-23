@@ -29,6 +29,8 @@ class WelcomeView extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: Color(0xFF0175c2),
+        backgroundColor: Colors.white
       ),
       home: WelcomePage(),
       routes: {
@@ -113,5 +115,7 @@ class WelcomeState extends State<WelcomePage> {
   @override
   void dispose() {
     super.dispose();
+    timer=null;
+
   }
 }

@@ -65,7 +65,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // if (state == AppLifecycleState.resumed) {}
     print('生命周期：' + state.toString());
-    showToast('生命周期：' + state.toString());
   }
 
   ///设备分辨率改变调用，如旋转屏幕
@@ -122,8 +121,6 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         HomeTab(),
         SecondTab(),
         OtherTab(),
-        OtherTab(),
-        OtherTab()
       ],
       index: index,
     ));
@@ -136,7 +133,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         return pages.elementAt(index);
       },
       controller: pageController,
-      itemCount: 5,
+      itemCount: 3,
       onPageChanged: setTabItemSelect,
     );
   }
@@ -146,16 +143,14 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     pages.add(HomeTab());
     pages.add(SecondTab());
     pages.add(OtherTab());
-    pages.add(OtherTab());
-    pages.add(OtherTab());
-    pages.length = 5;
+    pages.length = 3;
   }
 
   BottomNavigationBar getBottomBar() {
     return BottomNavigationBar(
       items: getBottomBarItems(),
       currentIndex: index,
-      fixedColor: Colors.blue,
+      fixedColor: Color(0xFF0175c2),
       type: BottomNavigationBarType.fixed,
       onTap: setPageViewItemSelect, //setTabItemSelect
     );
@@ -165,7 +160,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
     return CupertinoTabBar(
       items: getBottomBarItems(),
       currentIndex: index,
-      activeColor: Colors.blue,
+      activeColor: Color(0xFF0175c2),
       inactiveColor: Colors.grey,
       onTap: setPageViewItemSelect,
     );
@@ -196,7 +191,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         activeIcon: Icon(
           Icons.school,
           size: size,
-          color: Colors.blue,
+          color: Color(0xFF0175c2),
         ),
         backgroundColor: Colors.orange,
         title: Text("首页"));
@@ -209,7 +204,7 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         activeIcon: Icon(
           Icons.school,
           size: size,
-          color: Colors.blue,
+          color: Color(0xFF0175c2),
         ),
         backgroundColor: Colors.orange,
         title: Text("分类"));
@@ -222,42 +217,14 @@ class HomePageState extends State<HomePage> with WidgetsBindingObserver {
         activeIcon: Icon(
           Icons.school,
           size: size,
-          color: Colors.blue,
+          color: Color(0xFF0175c2),
         ),
         backgroundColor: Colors.orange,
         title: Text("其他"));
-    BottomNavigationBarItem item4 = BottomNavigationBarItem(
-        icon: Icon(
-          Icons.school,
-          size: size,
-          color: Colors.grey,
-        ),
-        activeIcon: Icon(
-          Icons.school,
-          size: size,
-          color: Colors.blue,
-        ),
-        backgroundColor: Colors.orange,
-        title: Text("其他"));
-    BottomNavigationBarItem item5 = BottomNavigationBarItem(
-        icon: Icon(
-          Icons.school,
-          size: size,
-          color: Colors.grey,
-        ),
-        activeIcon: Icon(
-          Icons.school,
-          size: size,
-          color: Colors.blue,
-        ),
-        backgroundColor: Colors.orange,
-        title: Text("其他3"));
     items.add(item1);
     items.add(item2);
     items.add(item3);
-    items.add(item4);
-    items.add(item5);
-    items.length = 5;
+    items.length = 3;
     return items;
   }
 

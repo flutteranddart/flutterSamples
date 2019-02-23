@@ -8,7 +8,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class ImageSamples extends StatefulWidget {
   @override
@@ -45,6 +44,14 @@ class ImageSamplesState extends State<ImageSamples> {
     return CustomScrollView(
       shrinkWrap: true,
       slivers: <Widget>[
+        SliverAppBar(
+          title: Text('Image'),
+          expandedHeight: 250,
+          pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: const Text(''),
+          ),
+        ),
         SliverPadding(
           padding: const EdgeInsets.all(20.0),
           sliver: SliverList(

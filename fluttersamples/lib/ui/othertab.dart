@@ -30,13 +30,11 @@ class OtherTabState extends State<OtherTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ToolBar(
-        child: Text("title"),
+      appBar: AppBar(
+        title: Text("Flutter Samples"),
       ),
       body: Scaffold(
-          body: RefreshIndicator(
-        onRefresh: _handleRefresh,
-        child: GridView.count(
+        body: GridView.count(
           primary: false,
           padding: const EdgeInsets.all(8.0),
           mainAxisSpacing: 8.0, //竖向间距
@@ -44,51 +42,15 @@ class OtherTabState extends State<OtherTab> {
           crossAxisSpacing: 8.0, //横向间距
           children: widgets,
         ),
-      )),
+      ),
     );
-  }
-
-  Future<Null> _handleRefresh() async {
-    await Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        print('refresh');
-        for (int i = 0; i < 50; i++) {
-          widgets.add(getItem(i));
-        }
-        return null;
-      });
-    });
   }
 
   Widget getItem(int i) {
     return new GestureDetector(
       child: new Padding(
-          padding: new EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              Image.asset("assets/img_welcome.jpg"),
-              Image.network(
-                  "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=495625508,3408544765&fm=27&gp=0.jpg"),
-              Text(
-                "row $i",
-                style: TextStyle(color: Colors.pink),
-              ),
-              CircularProgressIndicator(
-                backgroundColor: Colors.cyan,
-                valueColor: AlwaysStoppedAnimation(Colors.yellow),
-                semanticsLabel: 'label',
-                semanticsValue: 'value',
-              ),
-              Padding(
-                child: LinearProgressIndicator(
-                  semanticsLabel: 'label',
-                  semanticsValue: 'value',
-                  backgroundColor: Colors.deepPurple,
-                ),
-                padding: EdgeInsets.all(8),
-              ),
-            ],
-          )),
+        padding: new EdgeInsets.all(10.0),
+      ),
       onTap: () {
         toPage();
       },

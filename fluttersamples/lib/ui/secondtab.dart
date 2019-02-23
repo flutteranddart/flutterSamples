@@ -7,9 +7,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttersamples/samples/image_samples.dart';
 import 'package:fluttersamples/utils/httpUtils.dart';
-import 'package:fluttersamples/widgets/ToolBar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:fluttersamples/utils/dialogUtils.dart';
+import 'list_page.dart';
 
 class SecondTab extends StatefulWidget {
   @override
@@ -33,8 +33,8 @@ class SecondTabState extends State<SecondTab> {
         FocusScope.of(context).requestFocus(new FocusNode());
       },
       child: Scaffold(
-          appBar: ToolBar(
-            child: Text("title"),
+          appBar: AppBar(
+            title: Text("Flutter Samples"),
           ),
           body: Column(
             children: <Widget>[
@@ -47,9 +47,6 @@ class SecondTabState extends State<SecondTab> {
                     return ImageSamples();
                   }));
                 },
-              ),
-              TextField(
-                decoration: InputDecoration(hintText: '请输入文字...'),
               ),
             ],
           )),
@@ -87,4 +84,7 @@ class SecondTabState extends State<SecondTab> {
           );
         });
   }
+}
+
+class ListPage {
 }

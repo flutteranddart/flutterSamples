@@ -4,10 +4,11 @@
  * @Last Modified by:   Tan Dong 
  * @Last Modified time: 2019-02-22 22:29:04 
  */
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:fluttersamples/utils/PageLocalizations.dart';
+import 'package:fluttersamples/ui/list_page.dart';
 import 'package:fluttersamples/utils/utils.dart';
-import 'package:fluttersamples/widgets/ToolBar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomeTab extends StatefulWidget {
@@ -20,36 +21,41 @@ class HomeTab extends StatefulWidget {
 class HomeTabState extends State<HomeTab> {
   List widgets = [];
   List strings = [];
-
+  List icons = [];
   @override
   void initState() {
     super.initState();
     initList();
-    for (int i = 0; i < 18; i++) {
+    for (int i = 0; i < 8; i++) {
       widgets.add(getItem(i));
     }
-    Utils().getBatteryLevel().then((string){
+    widgets.length = 8;
+    Utils().getBatteryLevel().then((string) {
       print(string);
-      showToast(string);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ToolBar(
-        child: Text("title" + PageLocalizations.of(context).titleBarTitle),
+      appBar: AppBar(
+        leading: Icon(Icons.widgets),
+        title: Text('Flutter Samples'),
       ),
-      body: Scaffold(
-          body: RefreshIndicator(
+      body: RefreshIndicator(
         onRefresh: _handleRefresh,
-        child: ListView.builder(
-          itemCount: widgets.length,
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
           itemBuilder: (BuildContext context, int position) {
-            return getItem(position);
+            return widgets.elementAt(position);
           },
+          itemCount: widgets.length,
         ),
-      )),
+      ),
     );
   }
 
@@ -63,44 +69,48 @@ class HomeTabState extends State<HomeTab> {
   }
 
   Widget getItem(int i) {
-    if (i.isOdd) {
-      return new Divider();
-    }
-    return new GestureDetector(
-      child: new Padding(
-          padding: new EdgeInsets.all(10.0),
-          child: new Text(strings.elementAt(i))),
-      onTap: () {
-        setState(() {
-          showToast(strings.elementAt(i));
-          print('row $i');
-        });
+    return FlatButton(
+      onPressed: () {
+        gotoPage(i);
       },
-      onLongPress: () {
-        showToast(strings.elementAt(i));
-      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            icons.elementAt(i),
+            size: 30,
+          ),
+          Text(strings.elementAt(i)),
+        ],
+      ),
     );
   }
 
   void initList() {
-    strings.add("Text相关");
-    strings.add("Image相关");
-    strings.add("ListView相关");
-    strings.add("GridView相关");
-    strings.add("Flow相关");
-    strings.add("Table相关");
-    strings.add("File相关");
-    strings.add("Http相关");
-    strings.add("WebView相关");
-    strings.add("路由跳转相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
-    strings.add("Image相关");
+    strings.add("Base Widgets");
+    strings.add("Material");
+    strings.add("Cupertino");
+    strings.add("Style");
+    strings.add("Animation");
+    strings.add("Services");
+    strings.add("Gestures");
+    strings.add("Samples");
+    strings.length = 8;
+    icons.add(Icons.widgets);
+    icons.add(Icons.android);
+    icons.add(Icons.phone_iphone);
+    icons.add(Icons.style);
+    icons.add(Icons.rotate_90_degrees_ccw);
+    icons.add(Icons.local_laundry_service);
+    icons.add(Icons.gesture);
+    icons.add(Icons.smartphone);
+  }
+
+  void gotoPage(int index) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return ListPage(index:index);
+    }));
   }
 
   void showToast(String text) {
@@ -109,8 +119,24 @@ class HomeTabState extends State<HomeTab> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIos: 1,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
+        backgroundColor: Colors.black,
+        textColor: Colors.grey,
         fontSize: 16.0);
+  }
+
+  void copyFile() {
+    // var systemTempDir = Directory('sdcard');
+    var file = File('sdcard/flutter.png');
+    file.exists().then((isThere) {
+      if (!isThere) {
+        File uriFile = File.fromUri(Uri.parse('assets/flutter.png'));
+        File fileAssets = File('assets/flutter.png');
+        uriFile.exists().then((isExists) {
+          print(isExists);
+        });
+        fileAssets.copy('sdcard/flutter.png');
+        print('copy');
+      }
+    });
   }
 }
