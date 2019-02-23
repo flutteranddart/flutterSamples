@@ -102,7 +102,7 @@ class WelcomeState extends State<WelcomePage> {
   }
 
   void countDown() {
-    var _duration = new Duration(seconds: 0);
+    var _duration = new Duration(seconds: 3);
     new Future.delayed(_duration, gotoPage);
   }
 
