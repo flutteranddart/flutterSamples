@@ -32,7 +32,7 @@ BottomSheet、Scaffold、AlerDialog、SimpleDialog、Column、CircularProgressIn
 
 
 
-这个Demo效果图，底部有5个导航栏，页面间是可以滑动切换的，有下拉刷新、Toast、ListView、有网络接口请求：
+这个Demo效果图，底部有3个导航栏，页面间是可以滑动切换的，有下拉刷新、Toast、ListView、有网络接口请求：
 
 ![欢迎页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191524.png)
 
@@ -41,6 +41,8 @@ BottomSheet、Scaffold、AlerDialog、SimpleDialog、Column、CircularProgressIn
 ![切换页](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191613.png)
 
 ![下拉刷新](https://github.com/flutteranddart/flutterSamples/blob/master/20190207191634.png)
+
+![Samples页](https://github.com/flutteranddart/flutterSamples/blob/master/20190223170854.png)
 
 
 
