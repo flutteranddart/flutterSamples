@@ -1,8 +1,8 @@
 /*
  * @Author: Tan Dong 
- * @Date: 2019-02-22 22:29:56 
+ * @Date: 2019-02-25 20:34:24 
  * @Last Modified by:   Tan Dong 
- * @Last Modified time: 2019-02-22 22:29:56 
+ * @Last Modified time: 2019-02-25 20:34:24 
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -26,7 +26,7 @@ class TableSamplesState extends State<TableSamples> {
       appBar: AppBar(title: Text("Table")),
       body: Padding(
         padding: EdgeInsets.all(10),
-        child: table2(),
+        child: table4(),
       ),
     );
   }
@@ -193,6 +193,138 @@ Widget table2() {
   );
 }
 
-Widget table3(){
-  return Container();
+Widget table3() {
+  return DataTable(
+    ///行
+    rows: <DataRow>[
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('data1'), onTap: onTap),
+          DataCell(Text('data2'), onTap: onTap),
+          DataCell(Text('data3'), onTap: onTap),
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('data1'), onTap: onTap),
+          DataCell(Text('data2'), onTap: onTap),
+          DataCell(Text('data3'), onTap: onTap),
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('data1'), onTap: onTap),
+          DataCell(Text('data2'), onTap: onTap),
+          DataCell(Text('data3'), onTap: onTap),
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('data1'), onTap: onTap),
+          DataCell(Text('data2'), onTap: onTap),
+          DataCell(Text('data3'), onTap: onTap),
+        ],
+      ),
+      DataRow(
+        cells: <DataCell>[
+          DataCell(Text('data1'), onTap: onTap),
+          DataCell(Text('data2'), onTap: onTap),
+          DataCell(Text('data3'), onTap: onTap),
+        ],
+      ),
+    ],
+
+    ///列
+    columns: <DataColumn>[
+      DataColumn(label: Text('DataColumn1')),
+      DataColumn(label: Text('DataColumn2')),
+      DataColumn(label: Text('DataColumn3')),
+    ],
+  );
+}
+
+TableDataSource _dataSource = TableDataSource();
+
+Widget table4() {
+  return PaginatedDataTable(
+    source: _dataSource,
+
+    ///默认为0
+    initialFirstRowIndex: 0,
+
+    ///默认为10
+    rowsPerPage: 20,
+    onSelectAll: (bool checked) {
+      _dataSource.selectAll(checked);
+    },
+    header: Text('data header'),
+    columns: <DataColumn>[
+      DataColumn(label: Text('DataColumn1')),
+      DataColumn(label: Text('DataColumn2')),
+    ],
+  );
+}
+
+class Shop {
+  final String name;
+  final int price;
+
+  ///默认为未选中
+  bool selected = false;
+  Shop(this.name, this.price);
+}
+
+class TableDataSource extends DataTableSource {
+  final List<Shop> shops = <Shop>[
+    Shop('name', 100),
+    Shop('name2', 130),
+  ];
+  int _selectedCount = 0;
+
+  ///根据位置获取内容行
+  @override
+  DataRow getRow(int index) {
+    Shop shop = shops.elementAt(index);
+    return DataRow.byIndex(
+        cells: <DataCell>[
+          DataCell(Text('${shop.name}')),
+          DataCell(Text('${shop.price}')),
+        ],
+        selected: shop.selected,
+        index: index,
+        onSelectChanged: (bool isSelected) {
+          if (shop.selected != isSelected) {
+            _selectedCount += isSelected ? 1 : -1;
+            shop.selected = isSelected;
+            notifyListeners();
+          }
+        });
+  }
+
+  @override
+
+  ///行数是否不确定
+  bool get isRowCountApproximate => false;
+
+  @override
+
+  ///行数
+  int get rowCount => shops.length;
+
+  @override
+
+  ///选中的行数
+  int get selectedRowCount => _selectedCount;
+
+  void selectAll(bool checked) {
+    for (Shop shop in shops) {
+      shop.selected = checked;
+    }
+    _selectedCount = checked ? shops.length : 0;
+    notifyListeners();
+  }
+}
+
+void onTap() {
+  print('data onTap');
 }

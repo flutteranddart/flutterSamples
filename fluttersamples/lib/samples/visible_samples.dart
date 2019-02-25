@@ -1,8 +1,8 @@
 /*
  * @Author: Tan Dong 
- * @Date: 2019-02-22 22:30:05 
+ * @Date: 2019-02-25 20:34:29 
  * @Last Modified by:   Tan Dong 
- * @Last Modified time: 2019-02-22 22:30:05 
+ * @Last Modified time: 2019-02-25 20:34:29 
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -17,7 +17,9 @@ class VisibleSamples extends StatefulWidget {
 class VisibleSamplesState extends State<VisibleSamples> {
   bool visible = true;
   bool offstage = true;
-  bool ignorePointer = true;
+  bool opacityVisible = true;
+  bool renderTree = true;
+  bool visibility = true;
 
   @override
   void initState() {
@@ -33,7 +35,8 @@ class VisibleSamplesState extends State<VisibleSamples> {
       body: Center(
         child: Column(
           children: <Widget>[
-            //invisible
+            ///Invisible
+            ///通过IgnorePointer和Opacity透明度控制显示隐藏
             RaisedButton(
               onPressed: () {
                 setState(() {
@@ -44,9 +47,12 @@ class VisibleSamplesState extends State<VisibleSamples> {
             ),
             IgnorePointer(
                 ignoring: true,
-                child:
-                    Opacity(opacity: visible ? 1.0 : 0.0, child: Text('data'))),
-            //gone
+                child: Opacity(
+                    opacity: visible ? 1.0 : 0.0,
+                    child: Text('IgnorePointer Opacity'))),
+
+            ///Gone
+            ///通过Offstage控制显示隐藏
             RaisedButton(
               onPressed: () {
                 setState(() {
@@ -59,19 +65,51 @@ class VisibleSamplesState extends State<VisibleSamples> {
               offstage: offstage,
               child: Text('Offstage'),
             ),
+
+            ///Invisible
+            ///直接通过Opacity透明度控制显示隐藏
             RaisedButton(
               onPressed: () {
                 setState(() {
-                  ignorePointer = !ignorePointer;
+                  opacityVisible = !opacityVisible;
                 });
               },
               child: Text('RaisedButton'),
             ),
-            IgnorePointer(
-                ignoring: ignorePointer, child: Text('IgnorePointer')),
+            Opacity(
+              opacity: opacityVisible ? 1.0 : 0.0,
+              child: Text('Opacity'),
+            ),
+
+            ///Gone
+            ///通过移除Widget来控制显示隐藏
+            RaisedButton(
+              onPressed: () {
+                setState(() {
+                  renderTree = !renderTree;
+                });
+              },
+              child: Text('RaisedButton'),
+            ),
+            renderTree ? Text('RenderTree') : Container(),
+            RaisedButton(
+              onPressed: () {
+                setState(() {
+                  visibility = !visibility;
+                });
+              },
+              child: Text('RaisedButton'),
+            ),
+
+            ///Gone
+            ///通过Visibility来控制显示隐藏
+            Visibility(
+              visible: visibility,
+              child: Text('Visibility'),
+            ),
             RaisedButton(
               onPressed: () {},
-              child: Text('RaisedButton'),
+              child: Text('BottomRaisedButton'),
             ),
           ],
         ),
