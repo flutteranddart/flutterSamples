@@ -1,8 +1,8 @@
 /*
  * @Author: Tan Dong 
- * @Date: 2019-02-25 20:34:24 
- * @Last Modified by:   Tan Dong 
- * @Last Modified time: 2019-02-25 20:34:24 
+ * @Date: 2019-02-26 21:11:44 
+ * @Last Modified by: Tan Dong
+ * @Last Modified time: 2019-02-26 21:12:14
  */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -246,21 +246,26 @@ Widget table3() {
 TableDataSource _dataSource = TableDataSource();
 
 Widget table4() {
-  return PaginatedDataTable(
-    source: _dataSource,
+  return ListView(
+    padding: EdgeInsets.all(10),
+    children: <Widget>[
+      PaginatedDataTable(
+        source: _dataSource,
 
-    ///默认为0
-    initialFirstRowIndex: 0,
+        ///默认为0
+        initialFirstRowIndex: 0,
 
-    ///默认为10
-    rowsPerPage: 20,
-    onSelectAll: (bool checked) {
-      _dataSource.selectAll(checked);
-    },
-    header: Text('data header'),
-    columns: <DataColumn>[
-      DataColumn(label: Text('DataColumn1')),
-      DataColumn(label: Text('DataColumn2')),
+        ///默认为10
+        rowsPerPage: 6,
+        onSelectAll: (bool checked) {
+          _dataSource.selectAll(checked);
+        },
+        header: Text('data header'),
+        columns: <DataColumn>[
+          DataColumn(label: Text('DataColumn1')),
+          DataColumn(label: Text('DataColumn2')),
+        ],
+      ),
     ],
   );
 }
@@ -287,8 +292,11 @@ class TableDataSource extends DataTableSource {
     Shop shop = shops.elementAt(index);
     return DataRow.byIndex(
         cells: <DataCell>[
-          DataCell(Text('${shop.name}')),
-          DataCell(Text('${shop.price}')),
+          DataCell(
+            Text('${shop.name}'),
+            placeholder: true,
+          ),
+          DataCell(Text('${shop.price}'), showEditIcon: true),
         ],
         selected: shop.selected,
         index: index,
