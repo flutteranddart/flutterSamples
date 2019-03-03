@@ -29,6 +29,9 @@ Routes、Navigator、CupertinoTabBar、SnackBar、BottomNavigationBar、生命�
 BottomSheet、Scaffold、AlerDialog、SimpleDialog、Column、CircularProgressIndicator、LinearProgressIndicator、
 自定义Widget、工具类封装等。注释和其他的排版完善中...
 
+【Wiki文档】
+[Flutter开发环境搭建和调试](https://github.com/flutteranddart/flutterSamples/wiki/Flutter%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%92%8C%E8%B0%83%E8%AF%95)
+
 
 
 
