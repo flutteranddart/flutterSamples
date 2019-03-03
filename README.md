@@ -30,10 +30,10 @@ BottomSheet、Scaffold、AlerDialog、SimpleDialog、Column、CircularProgressIn
 自定义Widget、工具类封装等。注释和其他的排版完善中...
 
 【Wiki文档】
+
 [Flutter开发环境搭建和调试](https://github.com/flutteranddart/flutterSamples/wiki/Flutter%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%92%8C%E8%B0%83%E8%AF%95)
 
-
-
+<a href="https://github.com/flutteranddart/flutterSamples/wiki/Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E8%AF%A6%E8%A7%A3" target="_blank">Http网络请求详解</a>
 
 这个Demo效果图，底部有3个导航栏，页面间是可以滑动切换的，有下拉刷新、Toast、ListView、有网络接口请求：
 
