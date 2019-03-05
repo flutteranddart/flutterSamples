@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_tv/samples/card_samples.dart';
+import 'package:fluttersamples/samples/card_samples.dart';
 
 var icons = [
   AnimatedIcons.add_event,
