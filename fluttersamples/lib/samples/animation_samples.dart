@@ -1,3 +1,9 @@
+/*
+ * @Author: Tan Dong 
+ * @Date: 2019-03-08 20:24:24 
+ * @Last Modified by:   Tan Dong 
+ * @Last Modified time: 2019-03-08 20:24:24 
+ */
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttersamples/samples/card_samples.dart';
@@ -36,9 +42,20 @@ class AnimationSamplesState extends State<AnimationSamples>
   Animation<double> _proxyAnimation;
   Animation<double> _curveAnimation;
   Animation<double> _tweenAnimation;
+  Animation<double> _doubleAnimation;
   Animation<int> _opacityAnimation;
-  Animation<double> _rotateAnimation;
   Animation<Color> _colorAnimation;
+  Animation<AlignmentGeometry> _alignmentAnimation;
+  Animation<Decoration> _decorationAnimation;
+  Animation<TextStyle> _textStyleAnimation;
+  Animation<double> _fadeAnimation;
+  Animation<RelativeRect> _positionedAnimation;
+  Animation<Rect> _rectAnimation;
+  Animation<double> _rotationAnimation;
+  Animation<double> _scaleAnimation;
+  Animation<double> _sizeAnimation;
+  Animation<Offset> _slideAnimation;
+
   AnimationController _animationIconController;
   AnimationController _valueController;
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
@@ -56,11 +73,8 @@ class AnimationSamplesState extends State<AnimationSamples>
         upperBound: 1,
         duration: const Duration(seconds: 3),
         vsync: this);
-    _valueController = AnimationController(
-        lowerBound: 0,
-        upperBound: 1,
-        duration: const Duration(seconds: 3),
-        vsync: this);
+    _valueController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
     _animationIconController =
         AnimationController(duration: const Duration(seconds: 3), vsync: this);
 
@@ -82,20 +96,77 @@ class AnimationSamplesState extends State<AnimationSamples>
         curve: Curves.easeIn,
       ),
     );
+    _doubleAnimation = Tween<double>(begin: 0.0, end: 100.0).animate(
+      CurvedAnimation(
+        parent: _valueController,
 
-    Animation<int> alpha = IntTween(begin: 0, end: 255)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.bounceIn));
-    _opacityAnimation = IntTween(begin: 0, end: 255)
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.bounceIn));
+        ///产生数据的速率曲线
+        curve: Curves.easeIn,
+      ),
+    )..addListener(() {
+        setState(() {
+          // the state that has changed here is the animation object’s value
+        });
+      });
+    _opacityAnimation = IntTween(begin: 0, end: 255).animate(
+        CurvedAnimation(parent: _valueController, curve: Curves.bounceIn));
     _colorAnimation =
         ColorTween(begin: Colors.orange, end: Colors.teal).animate(_controller);
+    _alignmentAnimation = AlignmentGeometryTween(
+            begin: Alignment.topLeft, end: Alignment.topRight)
+        .animate(_valueController);
+    _decorationAnimation = DecorationTween(
+        begin: BoxDecoration(
+          color: const Color(0xff7c94b6),
+          image: DecorationImage(
+            image: ExactAssetImage('assets/flutter-mark-square-64.png'),
+            fit: BoxFit.cover,
+          ),
+          border: Border.all(
+            color: Colors.black,
+            width: 8.0,
+          ),
+        ),
+        end: BoxDecoration(
+          color: Colors.orange,
+          border: Border.all(
+            color: Colors.teal,
+            width: 2.0,
+          ),
+        )).animate(_valueController);
+    _textStyleAnimation = TextStyleTween(
+            begin: TextStyle(
+                fontWeight: FontWeight.normal,
+                fontSize: 12,
+                color: Colors.orange),
+            end: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.teal,
+                decoration: TextDecoration.none))
+        .animate(_valueController);
+    _fadeAnimation = CurvedAnimation(
+      parent: _valueController,
+      curve: Curves.fastOutSlowIn,
+    );
+    _positionedAnimation = RelativeRectTween(
+            begin: RelativeRect.fromLTRB(50, 10, 80, 100),
+            end: RelativeRect.fromLTRB(0, 0, 0, 0))
+        .animate(_valueController);
+    _rectAnimation = RectTween(
+            begin: Rect.fromLTRB(50, 10, 80, 100),
+            end: Rect.fromLTRB(0, 0, 0, 0))
+        .animate(_valueController);
+    _rotationAnimation = Tween(begin: 0.0, end: 1.0).animate(_valueController);
+    _scaleAnimation = Tween(begin: 0.0, end: 2.0).animate(_valueController);
+    _sizeAnimation = Tween(begin: 0.0, end: 100.0).animate(_valueController);
+    _slideAnimation =
+        Tween(begin: Offset(0, 20), end: Offset.zero).animate(_valueController);
 
     ///监听动画每一帧
     _curveAnimation.addListener(() {
       print('addListener');
     });
-    _proxyAnimation = ProxyAnimation();
-
     ///动画状态监听器
     _curveAnimation.addStatusListener((AnimationStatus status) {
       if (status == AnimationStatus.forward) {
@@ -110,6 +181,7 @@ class AnimationSamplesState extends State<AnimationSamples>
         _controller.forward();
       }
     });
+    _valueController.forward();
     super.initState();
   }
 
@@ -123,37 +195,44 @@ class AnimationSamplesState extends State<AnimationSamples>
     );
   }
 
-  ///AnimatedOpacity,AnimatedAlign,AnimatedBuilder,AnimatedContainer
-  ///AnimatedCrossFade,AnimatedCrossFadeBuilder
-  ///，CurvedAnimation，AnimatedIcon,AnimatedList
-  ///AnimatedOpacity,AnimatedPadding,AnimatedPhysicalModel
-  ///AnimatedPositioned,AnimatedPositionedDirectional
-  ///AnimatedSize,AnimatedSwitcher,AnimatedTheme
   Widget animation1(BuildContext context) {
     TextStyle textStyle = Theme.of(context).textTheme.display1;
     print(_valueController.value);
+    print(_doubleAnimation.value);
     return CustomScrollView(
       slivers: <Widget>[
         SliverToBoxAdapter(
           child: Column(
             children: <Widget>[
+              ///SizeTransition
+              SizeTransition(
+                sizeFactor: _sizeAnimation,
+                child: Text('SizeTransition'),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///SlideTransition
+              SlideTransition(
+                position: _slideAnimation,
+                child: Container(
+                  child: Text('SlideTransition'),
+                  decoration: BoxDecoration(color: Colors.teal),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///动态使用Animation的value
               Container(
-                  width: _valueController.value > 0
-                      ? _valueController.value * 100
-                      : 20,
-                  height: _valueController.value > 0
-                      ? _valueController.value * 100
-                      : 20,
-                  color: Colors.teal,
-                  child: RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        print(_valueController.value);
-                        _valueController.forward();
-                      });
-                    },
-                    child: Text('AnimationValue'),
-                  )),
+                width: _doubleAnimation.value,
+                height: _doubleAnimation.value,
+                color: Colors.teal,
+                margin: EdgeInsets.symmetric(vertical: 10.0),
+                child: FlutterLogo(),
+              ),
 
               SizedBox(
                 height: 30,
@@ -169,8 +248,117 @@ class AnimationSamplesState extends State<AnimationSamples>
                 height: 30,
               ),
 
+              ///AlignTransition
               AlignTransition(
-                child: Text('AlignTransition'),
+                alignment: _alignmentAnimation,
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  color: Colors.orange,
+                  child: Text('AlignTransition'),
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///DecoratedBoxTransition
+              DecoratedBoxTransition(
+                child: Text('DecoratedBoxTransition'),
+                decoration: _decorationAnimation,
+                position: DecorationPosition.foreground,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///DefaultTextStyleTransition
+              DefaultTextStyleTransition(
+                child: Text('DefaultTextStyleTransition'),
+                style: _textStyleAnimation,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///FadeTransition
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: Text('FadeTransition'),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              ///PositionedTransition
+              ///需为Stack子child
+              Container(
+                width: 200,
+                height: 200,
+                color: Colors.orange,
+                child: Stack(
+                  children: <Widget>[
+                    PositionedTransition(
+                      rect: _positionedAnimation,
+                      child: Text('PositionedTransition'),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              ///RelativePositionedTransition
+              ///需为Stack子child
+              Container(
+                width: 200,
+                height: 200,
+                color: Colors.orange,
+                child: Stack(
+                  children: <Widget>[
+                    RelativePositionedTransition(
+                      rect: _rectAnimation,
+                      size: Size(100, 60),
+                      child: Text('RelativePositionedTransition'),
+                    ),
+                  ],
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              ///RotationTransition
+              Center(
+                child: RotationTransition(
+                  turns: _rotationAnimation,
+                  child: RaisedButton(
+                    onPressed: () {
+                      if (_controller.isAnimating) {
+                        _controller.reset();
+                      } else if (_controller.isCompleted) {
+                        _controller.reset();
+                      } else {
+                        _controller.forward();
+                      }
+                    },
+                    child: Text('RotationTransition'),
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: 30,
+              ),
+
+              ///ScaleTransition
+              ScaleTransition(
+                scale: _scaleAnimation,
+                child: Text('ScaleTransition'),
               ),
 
               SizedBox(
@@ -296,6 +484,7 @@ class AnimationSamplesState extends State<AnimationSamples>
                 ),
                 duration: const Duration(seconds: 3),
               ),
+
               SizedBox(
                 height: 30,
               ),
@@ -310,6 +499,37 @@ class AnimationSamplesState extends State<AnimationSamples>
                   child: Text('AnimatedAlign'),
                 ),
               ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///AnimatedPhysicalModel
+              AnimatedPhysicalModel(
+                elevation: 2,
+                shape: BoxShape.circle,
+                shadowColor: Colors.teal,
+                duration: const Duration(seconds: 3),
+                color: Colors.orange,
+                child: Text('AnimatedPhysicalModel'),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              ///Transform
+              Container(
+                color: Colors.black,
+                child: Transform(
+                  alignment: Alignment.topRight,
+                  transform: Matrix4.skewY(0.3)..rotateZ(-3.1415926 / 12.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    color: const Color(0xFFE8581C),
+                    child: const Text('Apartment for rent!'),
+                  ),
+                ),
+              ),
+
               SizedBox(
                 height: 30,
               ),
@@ -431,6 +651,7 @@ class AnimationSamplesState extends State<AnimationSamples>
                 },
                 child: Text('AnimatedIcon'),
               ),
+
               SizedBox(
                 height: 30,
               ),
@@ -465,24 +686,6 @@ class AnimationSamplesState extends State<AnimationSamples>
                 },
               ),
 
-              ///RotationTransition
-              Center(
-                child: RotationTransition(
-                  turns: _tweenAnimation,
-                  child: RaisedButton(
-                    onPressed: () {
-                      if (_controller.isAnimating) {
-                        _controller.reset();
-                      } else if (_controller.isCompleted) {
-                        _controller.reset();
-                      } else {
-                        _controller.forward();
-                      }
-                    },
-                    child: Text('RotationTransition'),
-                  ),
-                ),
-              ),
               SizedBox(
                 height: 30,
               ),
@@ -582,12 +785,6 @@ class ScaleAnimatedWidget extends AnimatedWidget {
     final Animation<double> animation = listenable;
     return Center(
       child: Container(
-        child: RaisedButton(
-          onPressed: () {
-            animationController.forward();
-          },
-          child: Text('AnimatedWidget'),
-        ),
         decoration: BoxDecoration(color: Colors.redAccent),
         margin: EdgeInsets.symmetric(vertical: 10.0),
         height: animation.value * 100,
@@ -734,99 +931,4 @@ class _ClickCounterState extends State<AnimationSamples> {
       ),
     );
   }
-}
-
-Widget listBody1() {
-  return Flex(
-    direction: Axis.horizontal,
-    children: <Widget>[
-      ListBody(
-        mainAxis: Axis.horizontal,
-        reverse: false,
-        children: <Widget>[
-          Container(
-              color: Colors.red,
-              width: 50.0,
-              height: 50.0,
-              child: Text('标题1', style: TextStyle(color: Color(0xffffffff)))),
-          Container(
-              color: Colors.yellow,
-              width: 50.0,
-              height: 50.0,
-              child: Text('标题2', style: TextStyle(color: Color(0xffffffff)))),
-          Container(
-              color: Colors.green,
-              width: 50.0,
-              height: 50.0,
-              child: Text('标题3', style: TextStyle(color: Color(0xffffffff)))),
-          Container(
-              color: Colors.blue,
-              width: 50.0,
-              height: 50.0,
-              child: Text('标题4', style: TextStyle(color: Color(0xffffffff)))),
-          Container(
-              color: Colors.teal,
-              width: 50.0,
-              height: 50.0,
-              child: Text('标题5', style: TextStyle(color: Color(0xffffffff))))
-        ],
-      )
-    ],
-  );
-}
-
-Widget listBody2() {
-  return Column(
-    children: <Widget>[
-      ///主轴空间不能受限，ListBody不会裁剪child
-      ///指定轴尺寸正常，另一个轴尺寸会拉伸
-      ///使用时最外层控件布局要有全屏特性，Column，Row，ListView，Flex,SingleChildScrollView
-      ListBody(
-        mainAxis: Axis.vertical,
-        reverse: false,
-        children: <Widget>[
-          Container(
-            color: Colors.red,
-            width: 20.0,
-            height: 50.0,
-          ),
-          Container(
-            color: Colors.yellow,
-            width: 20.0,
-            height: 50.0,
-          ),
-          Container(
-            color: Colors.green,
-            width: 20.0,
-            height: 50.0,
-          ),
-          Container(
-            color: Colors.blue,
-            width: 20.0,
-            height: 50.0,
-          ),
-          Container(
-            color: Colors.black,
-            width: 20.0,
-            height: 50.0,
-          ),
-        ],
-      ),
-      Container(
-        color: Colors.teal,
-        width: 100.0,
-        height: 50.0,
-      ),
-      Container(
-        color: Colors.orange,
-        width: 100.0,
-        height: 50.0,
-      ),
-      Container(
-        color: Colors.amber,
-        width: 100.0,
-        height: 50.0,
-      ),
-    ],
-  );
 }
